@@ -1,15 +1,17 @@
 import { Component, signal } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookCard } from '../book-card/book-card';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [BookCard],
+  imports: [BookCard, DatePipe],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
 })
 export class DashboardPage {
   protected readonly books = signal<Book[]>([]);
+  protected readonly currentTimeStamp = signal(Date.now());
 
   constructor() {
     this.books.set([
@@ -29,15 +31,10 @@ export class DashboardPage {
         price: 36.9,
         authors: ['EY']
       },
-    ])
+    ]);
+
+    setInterval(() => {
+      this.currentTimeStamp.set(Date.now());
+    }, 1000);
   }
 }
-
-
-/*
-TODO
-- Struktur der Daten (Datenmodell)
-- Daten (Book[])
-- Schleife
-- Box zur Anzeige eines Buchs => eigene Komponente
-*/

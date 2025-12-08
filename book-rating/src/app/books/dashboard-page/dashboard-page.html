@@ -1,3 +1,5 @@
+<p>Datum: {{ currentTimeStamp() | date:'medium' }}</p>
+
 @for (b of books(); track b.isbn) {
   <app-book-card [book]="b" />
 }
