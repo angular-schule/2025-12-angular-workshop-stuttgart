@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookCard } from '../book-card/book-card';
 import { DatePipe } from '@angular/common';
+import { BookRatingHelper } from '../shared/book-rating-helper';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -12,6 +13,8 @@ import { DatePipe } from '@angular/common';
 export class DashboardPage {
   protected readonly books = signal<Book[]>([]);
   protected readonly currentTimeStamp = signal(Date.now());
+
+  readonly #ratingHelper = inject(BookRatingHelper);
 
   constructor() {
     this.books.set([
@@ -39,18 +42,12 @@ export class DashboardPage {
   }
 
   doRateUp(book: Book) {
-    const ratedBook = {
-      ...book,
-      rating: book.rating + 1
-    };
+    const ratedBook = this.#ratingHelper.rateUp(book);
     this.#updateList(ratedBook);
   }
 
   doRateDown(book: Book) {
-    const ratedBook = {
-      ...book, // Spread-Operator
-      rating: book.rating - 1
-    };
+    const ratedBook = this.#ratingHelper.rateDown(book);
     this.#updateList(ratedBook);
   }
 
