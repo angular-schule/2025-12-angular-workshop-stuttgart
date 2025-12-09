@@ -12,16 +12,17 @@ import { BookStore } from '../shared/book-store';
   styleUrl: './dashboard-page.scss',
 })
 export class DashboardPage {
-  protected readonly books = signal<Book[]>([]);
-  protected readonly currentTimeStamp = signal(Date.now());
-
   readonly #ratingHelper = inject(BookRatingHelper);
   readonly #bookStore = inject(BookStore);
 
+  protected readonly books = this.#bookStore.getAllResource();
+  protected readonly currentTimeStamp = signal(Date.now());
+
+
   constructor() {
-    this.#bookStore.getAll().subscribe(receivedBooks => {
+    /*this.#bookStore.getAll().subscribe(receivedBooks => {
       this.books.set(receivedBooks);
-    });
+    });*/
 
     setInterval(() => {
       this.currentTimeStamp.set(Date.now());
@@ -39,7 +40,7 @@ export class DashboardPage {
   }
 
   #updateList(ratedBook: Book) {
-    this.books.update(currentList => {
+    this.books.value.update(currentList => {
       return currentList.map(b => {
         if (b.isbn === ratedBook.isbn) {
           return ratedBook;

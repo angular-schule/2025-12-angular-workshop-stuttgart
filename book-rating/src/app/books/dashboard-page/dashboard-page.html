@@ -1,8 +1,11 @@
 <p>Datum: {{ currentTimeStamp() | date:'medium' }}</p>
 
-@for (b of books(); track b.isbn) {
-  <app-book-card [book]="b"
-    (rateUp)="doRateUp($event)"
-    (rateDown)="doRateDown($event)" />
-}
+<button type="button" class="btn btn-grey" (click)="books.reload()">Reload</button>
 
+@if (books.hasValue()) {
+  @for (b of books.value(); track b.isbn) {
+    <app-book-card [book]="b"
+      (rateUp)="doRateUp($event)"
+      (rateDown)="doRateDown($event)" />
+  }
+}
