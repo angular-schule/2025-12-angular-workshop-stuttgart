@@ -11,6 +11,7 @@
     <p>{{ book().description }}</p>
     <p>Preis: {{ book().price | currency:'EUR' }}</p>
     <p>Autoren: {{ authorsList() }}</p>
+    <p>Autoren: {{ book().authors | authors }}</p>
 
     <button type="button" [disabled]="book().rating >= 5" class="btn btn-green" (click)="doRateUp()"> + </button>
     <button type="button" [disabled]="book().rating <= 1" class="btn btn-red" (click)="doRateDown()"> – </button>
