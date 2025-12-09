@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { Book } from '../shared/book';
 import { RatingDisplay } from '../rating-display/rating-display';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
@@ -20,6 +20,8 @@ export class BookCard {
   // von unten nach oben
   readonly rateUp = output<Book>();
   readonly rateDown = output<Book>();
+
+  protected readonly authorsList = computed(() => this.book().authors.join(', '));
 
   doRateUp() {
     this.rateUp.emit(this.book());
