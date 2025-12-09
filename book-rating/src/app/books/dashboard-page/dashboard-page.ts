@@ -3,6 +3,7 @@ import { Book } from '../shared/book';
 import { BookCard } from '../book-card/book-card';
 import { DatePipe } from '@angular/common';
 import { BookRatingHelper } from '../shared/book-rating-helper';
+import { BookStore } from '../shared/book-store';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -15,26 +16,12 @@ export class DashboardPage {
   protected readonly currentTimeStamp = signal(Date.now());
 
   readonly #ratingHelper = inject(BookRatingHelper);
+  readonly #bookStore = inject(BookStore);
 
   constructor() {
-    this.books.set([
-      {
-        isbn: '123',
-        title: 'Angular',
-        description: 'Grundlagen und mehr',
-        rating: 5,
-        price: 42.9,
-        authors: ['FM', 'DK', 'JH']
-      },
-      {
-        isbn: '456',
-        title: 'Vue.js',
-        description: 'Das grüne Framework',
-        rating: 3,
-        price: 36.9,
-        authors: ['EY']
-      },
-    ]);
+    this.#bookStore.getAll().subscribe(receivedBooks => {
+      this.books.set(receivedBooks);
+    });
 
     setInterval(() => {
       this.currentTimeStamp.set(Date.now());
