@@ -39,10 +39,30 @@ export class DashboardPage {
   }
 
   doRateUp(book: Book) {
-    console.log('UP', book);
+    const ratedBook = {
+      ...book,
+      rating: book.rating + 1
+    };
+    this.#updateList(ratedBook);
   }
 
   doRateDown(book: Book) {
-    console.log('DOWN', book);
+    const ratedBook = {
+      ...book, // Spread-Operator
+      rating: book.rating - 1
+    };
+    this.#updateList(ratedBook);
+  }
+
+  #updateList(ratedBook: Book) {
+    this.books.update(currentList => {
+      return currentList.map(b => {
+        if (b.isbn === ratedBook.isbn) {
+          return ratedBook;
+        } else {
+          return b;
+        }
+      })
+    });
   }
 }
