@@ -37,4 +37,12 @@ export class DashboardPage {
       this.currentTimeStamp.set(Date.now());
     }, 1000);
   }
+
+  doRateUp(book: Book) {
+    console.log('UP', book);
+  }
+
+  doRateDown(book: Book) {
+    console.log('DOWN', book);
+  }
 }

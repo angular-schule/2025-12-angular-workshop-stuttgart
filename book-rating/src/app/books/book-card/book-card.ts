@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Book } from '../shared/book';
 import { RatingDisplay } from '../rating-display/rating-display';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
@@ -15,4 +15,17 @@ export class BookCard {
   // readonly book = input<number>();
   // readonly bookx = input<number>(5);
   readonly book = input.required<Book>();
+
+  // Output: hier fließen Daten zur Elternkomponente hinaus
+  // von unten nach oben
+  readonly rateUp = output<Book>();
+  readonly rateDown = output<Book>();
+
+  doRateUp() {
+    this.rateUp.emit(this.book());
+  }
+
+  doRateDown() {
+    this.rateDown.emit(this.book());
+  }
 }
