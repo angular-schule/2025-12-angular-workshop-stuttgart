@@ -5,7 +5,12 @@ import { Book } from './book';
   providedIn: 'root',
 })
 export class BookRatingHelper {
+  // AUFGABE: Rating muss Grenzen einhalten, z.B. 1...5
   rateUp(book: Book): Book {
+    if (book.rating >= 5) {
+      return book;
+    }
+
     return {
       ...book,
       rating: book.rating + 1
@@ -15,7 +20,7 @@ export class BookRatingHelper {
   rateDown(book: Book): Book {
     return {
       ...book, // Spread-Operator
-      rating: book.rating - 1
+      rating: Math.max(book.rating - 1, 1)
     };
   }
 }
