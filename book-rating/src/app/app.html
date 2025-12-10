@@ -1,5 +1,9 @@
 <main class="container">
   <h1>Book Rating</h1>
+  <nav class="mb-2">
+    <a routerLink="/books" class="me-2" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    <a routerLink="/books/create" routerLinkActive="active">Buch erstellen</a>
+  </nav>
   <router-outlet />
 </main>
 
