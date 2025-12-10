@@ -3,10 +3,11 @@ import { Book } from '../shared/book';
 import { RatingDisplay } from '../rating-display/rating-display';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { AuthorsPipe } from "../shared/authors-pipe";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-book-card',
-  imports: [RatingDisplay, CurrencyPipe, JsonPipe, AuthorsPipe],
+  imports: [RatingDisplay, CurrencyPipe, JsonPipe, AuthorsPipe, RouterLink],
   templateUrl: './book-card.html',
   styleUrl: './book-card.scss',
 })

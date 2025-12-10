@@ -15,8 +15,21 @@
 
     <button type="button" [disabled]="book().rating >= 5" class="btn btn-green" (click)="doRateUp()"> + </button>
     <button type="button" [disabled]="book().rating <= 1" class="btn btn-red" (click)="doRateDown()"> – </button>
+
+    <!--<a [routerLink]="'/books/' + book().isbn">Details</a>
+    <a [routerLink]="['/books', book().isbn]">Details</a>
+    <a routerLink="/books/{{ book().isbn }}">Details</a>
+    <a [routerLink]="['.', book().isbn]">Details</a>
+    <a [routerLink]="[book().isbn]">Details</a>
+    <a [routerLink]="book().isbn">Details</a>
+    <a routerLink="{{ book().isbn }}">Details</a>
+
+    <a routerLink="/books">Dashboard</a>-->
+    
+    <a [routerLink]="['/books', book().isbn]">Details</a>
   </div>
 </div>
 
 
 <!--{{ book() | json }}-->
+
