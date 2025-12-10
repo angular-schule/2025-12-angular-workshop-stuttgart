@@ -23,7 +23,8 @@ export class BookCreatePage {
     description: '',
     rating: 1,
     price: 0,
-    authors: ['', '']
+    authors: ['', ''],
+    firstThumbnailUrl: ''
   });
 
   protected readonly bookForm = form(this.formData, schema(path => {

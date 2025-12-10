@@ -5,4 +5,5 @@ export interface Book {
   authors: string[];
   price: number;
   rating: number;
+  firstThumbnailUrl: string;
 }

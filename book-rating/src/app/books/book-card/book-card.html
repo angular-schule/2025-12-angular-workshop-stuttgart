@@ -1,7 +1,7 @@
 <div class="card mb-4">
   <div class="card-body bg-light">
       <img class="img-thumbnail float-end" alt=""
-        src="https://api.angular.schule/avatar/{{ book().rating }}">
+        [src]="book().firstThumbnailUrl">
     <div class="card-title">
       <h2>
         {{ book().title }}
@@ -25,7 +25,7 @@
     <a routerLink="{{ book().isbn }}">Details</a>
 
     <a routerLink="/books">Dashboard</a>-->
-    
+
     <a [routerLink]="['/books', book().isbn]">Details</a>
   </div>
 </div>
