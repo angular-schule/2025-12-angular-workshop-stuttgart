@@ -1,1 +1,33 @@
-<p>book-create-page works!</p>
+<form>
+
+  <div class="form-group">
+    <label for="isbnField">ISBN</label>
+    <input id="isbnField" type="text" class="form-control"
+      [field]="bookForm.isbn" /> <!-- [class.invalid]="bookForm.isbn().invalid() && bookForm.isbn().touched()"  -->
+  </div>
+
+  <div class="form-group">
+    <label for="titleField">Titel</label>
+    <input id="titleField" type="text" class="form-control" [field]="bookForm.title" />
+  </div>
+
+  <div class="form-group">
+    <label for="descField">Beschreibung</label>
+    <textarea id="descField" class="form-control" [field]="bookForm.description"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="ratingField">Bewertung</label>
+    <input id="ratingField" type="number" class="form-control" [field]="bookForm.rating" />
+  </div>
+
+  <div class="form-group">
+    <label for="priceField">Preis</label>
+    <input id="priceField" type="number" class="form-control" [field]="bookForm.price" />
+  </div>
+
+  <button type="submit" class="btn btn-green">Abschicken</button>
+</form>
+
+
+<pre>{{ formData() | json }}</pre>
