@@ -18,7 +18,7 @@ export class DashboardPage {
   readonly #ratingHelper = inject(BookRatingHelper);
   readonly #bookStore = inject(BookStore);
 
-  protected readonly likedBooks = signal<Book[]>([]);
+  protected readonly likedBooks = this.#bookStore.likedBooks;
   protected readonly books = this.#bookStore.getAllResource();
   protected readonly currentTimeStamp = toSignal(
     timer(0, 1000).pipe(
@@ -59,9 +59,7 @@ export class DashboardPage {
   }
 
   addToFavorites(likedBook: Book) {
-    this.likedBooks.update(currentList => {
-      return [...currentList, likedBook];
-    });
+    this.#bookStore.addToFavorites(likedBook);
   }
 
   #updateList(ratedBook: Book) {

@@ -1,5 +1,5 @@
 import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Book } from './book';
 import { Observable } from 'rxjs';
 
@@ -9,6 +9,14 @@ import { Observable } from 'rxjs';
 export class BookStore {
   #http = inject(HttpClient);
   #apiBaseUrl = 'https://api.angular.schule';
+
+  readonly likedBooks = signal<Book[]>([]);
+
+  addToFavorites(likedBook: Book) {
+    this.likedBooks.update(currentList => {
+      return [...currentList, likedBook];
+    });
+  }
 
   getAllResource(): HttpResourceRef<Book[]> {
     return httpResource<Book[]>(
