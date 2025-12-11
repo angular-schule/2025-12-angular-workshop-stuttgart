@@ -28,16 +28,16 @@ export class BookCreatePage {
   });
 
   protected readonly bookForm = form(this.formData, schema(path => {
-    required(path.isbn);
-    required(path.title);
-    required(path.rating);
-    pattern(path.isbn, /^[0-9]+$/)
+    required(path.isbn, { message: 'Die ISBN muss angegeben werden.' });
+    required(path.title, { message: 'Der Titel muss angegeben werden.' });
+    required(path.rating, { message: 'Das Rating muss angegeben werden.' });
+    pattern(path.isbn, /^[0-9]+$/, { message: 'Die ISBN darf nur Zahlen beinhalten.' })
 
-    minLength(path.isbn, 8);
-    maxLength(path.isbn, 15);
-    min(path.rating, 1);
-    max(path.rating, 5);
-    min(path.price, 0);
+    minLength(path.isbn, 8, { message: 'Die ISBN muss min. 8 Zeichen lang sein.' });
+    maxLength(path.isbn, 15, { message: 'Die ISBN darf max. 15 Zeichen lang sein' });
+    min(path.rating, 1, { message: 'Rating min. 1' });
+    max(path.rating, 5, { message: 'Rating max. 5' });
+    min(path.price, 0, { message: 'Preis darf nicht negativ sein.' });
   }));
 }
 

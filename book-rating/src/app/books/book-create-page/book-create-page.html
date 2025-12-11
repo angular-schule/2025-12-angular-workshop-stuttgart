@@ -4,11 +4,28 @@
     <label for="isbnField">ISBN</label>
     <input id="isbnField" type="text" class="form-control"
       [field]="bookForm.isbn" /> <!-- [class.invalid]="bookForm.isbn().invalid() && bookForm.isbn().touched()"  -->
+
+    <!--<pre>{{ bookForm.isbn().errors() | json }}</pre>-->
+
+    @if (bookForm.isbn().touched()) {
+      @for (e of bookForm.isbn().errors(); track e.kind) {
+        <div class="feedback-error">{{ e.message }}</div>
+      }
+    }
+
+    <!--Ausblick: Eigene Komponente zur Fehleranzeige
+    <app-form-errors [fieldRef]="bookForm.isbn" />-->
   </div>
 
   <div class="form-group">
     <label for="titleField">Titel</label>
     <input id="titleField" type="text" class="form-control" [field]="bookForm.title" />
+
+    @if (bookForm.title().touched()) {
+      @for (e of bookForm.title().errors(); track e.kind) {
+        <div class="feedback-error">{{ e.message }}</div>
+      }
+    }
   </div>
 
   <div class="form-group">
