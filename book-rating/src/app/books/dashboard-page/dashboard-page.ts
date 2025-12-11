@@ -4,7 +4,7 @@ import { BookCard } from '../book-card/book-card';
 import { DatePipe } from '@angular/common';
 import { BookRatingHelper } from '../shared/book-rating-helper';
 import { BookStore } from '../shared/book-store';
-import { map, timer } from 'rxjs';
+import { map, Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -19,6 +19,7 @@ export class DashboardPage {
   protected readonly books = this.#bookStore.getAllResource();
   protected readonly currentTimeStamp = signal(Date.now());
 
+  #sub: Subscription;
 
   constructor() {
     /*this.#bookStore.getAll().subscribe(receivedBooks => {
@@ -30,11 +31,18 @@ export class DashboardPage {
     }, 1000);
     */
 
-    timer(0, 1000).pipe(
+    this.#sub = timer(0, 1000).pipe(
       map(() => Date.now())
     ).subscribe(e => {
       this.currentTimeStamp.set(e);
+      console.log(e);
     });
+  }
+
+  // Lifecycle Hook
+  ngOnDestroy() {
+    console.log('DESTROY');
+    this.#sub.unsubscribe();
   }
 
   doRateUp(book: Book) {
