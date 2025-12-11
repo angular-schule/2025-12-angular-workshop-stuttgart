@@ -1,7 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Book } from '../shared/book';
 import { Field, form, maxLength, minLength, schema, min, max, required, pattern, provideSignalFormsConfig, validate, applyEach } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
+import { BookStore } from '../shared/book-store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-create-page',
@@ -17,6 +19,10 @@ import { JsonPipe } from '@angular/common';
   ]
 })
 export class BookCreatePage {
+  #bookStore = inject(BookStore);
+  #router = inject(Router);
+
+
   protected readonly formData = signal<Book>({
     isbn: '',
     title: '',
@@ -58,6 +64,16 @@ export class BookCreatePage {
 
   addAuthorField() {
     this.bookForm.authors().value.update(currentAuthors => [...currentAuthors, '']);
+  }
+
+  submitForm() {
+    // this.bookForm().value()
+    this.#bookStore.create(this.formData()).subscribe(receivedBook => {
+      this.#router.navigate(['/books', receivedBook.isbn]);
+    });
+
+    // verhindert Neuladen des Formulars
+    return false;
   }
 }
 
