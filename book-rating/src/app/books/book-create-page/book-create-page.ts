@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Book } from '../shared/book';
-import { Field, form, maxLength, minLength, schema, min, max, required, pattern, provideSignalFormsConfig } from '@angular/forms/signals';
+import { Field, form, maxLength, minLength, schema, min, max, required, pattern, provideSignalFormsConfig, validate } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 
 @Component({
@@ -38,6 +38,17 @@ export class BookCreatePage {
     min(path.rating, 1, { message: 'Rating min. 1' });
     max(path.rating, 5, { message: 'Rating max. 5' });
     min(path.price, 0, { message: 'Preis darf nicht negativ sein.' });
+
+    validate(path.isbn, (ctx) => {
+      if (!ctx.value().startsWith('978')) {
+        return {
+          kind: 'isbnprefix',
+          message: 'ISBN muss mit 978 beginnen.'
+        }
+      } else {
+        return undefined;
+      }
+    })
   }));
 }
 
