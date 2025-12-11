@@ -1,0 +1,9 @@
+<h2>Favoritenliste</h2>
+
+@for (b of likedBooks(); track b.isbn) {
+  <p>{{ b.title }}</p>
+} @empty {
+  <p>Keine Favoriten vorhanden.</p>
+}
+
+<hr>

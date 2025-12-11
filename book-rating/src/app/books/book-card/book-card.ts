@@ -22,6 +22,7 @@ export class BookCard {
   // von unten nach oben
   readonly rateUp = output<Book>();
   readonly rateDown = output<Book>();
+  readonly like = output<Book>();
 
   protected readonly authorsList = computed(() => this.book().authors.join(', '));
 
@@ -31,5 +32,9 @@ export class BookCard {
 
   doRateDown() {
     this.rateDown.emit(this.book());
+  }
+
+  doLike() {
+    this.like.emit(this.book());
   }
 }

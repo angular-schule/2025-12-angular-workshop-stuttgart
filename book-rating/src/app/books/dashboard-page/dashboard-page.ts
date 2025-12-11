@@ -6,10 +6,11 @@ import { BookRatingHelper } from '../shared/book-rating-helper';
 import { BookStore } from '../shared/book-store';
 import { map, Subscription, timer } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { LikedBooksDisplay } from '../liked-books-display/liked-books-display';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [BookCard, DatePipe],
+  imports: [BookCard, DatePipe, LikedBooksDisplay],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
 })
@@ -17,6 +18,7 @@ export class DashboardPage {
   readonly #ratingHelper = inject(BookRatingHelper);
   readonly #bookStore = inject(BookStore);
 
+  protected readonly likedBooks = signal<Book[]>([]);
   protected readonly books = this.#bookStore.getAllResource();
   protected readonly currentTimeStamp = toSignal(
     timer(0, 1000).pipe(
@@ -54,6 +56,12 @@ export class DashboardPage {
   doRateDown(book: Book) {
     const ratedBook = this.#ratingHelper.rateDown(book);
     this.#updateList(ratedBook);
+  }
+
+  addToFavorites(likedBook: Book) {
+    this.likedBooks.update(currentList => {
+      return [...currentList, likedBook];
+    });
   }
 
   #updateList(ratedBook: Book) {
