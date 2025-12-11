@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { BookRatingHelper } from '../shared/book-rating-helper';
 import { BookStore } from '../shared/book-store';
 import { map, Subscription, timer } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -18,7 +18,12 @@ export class DashboardPage {
   readonly #bookStore = inject(BookStore);
 
   protected readonly books = this.#bookStore.getAllResource();
-  protected readonly currentTimeStamp = signal(Date.now());
+  protected readonly currentTimeStamp = toSignal(
+    timer(0, 1000).pipe(
+      map(() => Date.now())
+    ),
+    { initialValue: Date.now() }
+  );
 
   // #sub: Subscription;
 
@@ -32,13 +37,7 @@ export class DashboardPage {
     }, 1000);
     */
 
-    timer(0, 1000).pipe(
-      map(() => Date.now()),
-      takeUntilDestroyed()
-    ).subscribe(e => {
-      this.currentTimeStamp.set(e);
-      console.log(e);
-    });
+
   }
 
   // Lifecycle Hook
