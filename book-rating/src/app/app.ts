@@ -18,13 +18,13 @@ export class App {
     // timer(3000, 1000)   // ---------0---1---2---3---4---5 ...
     // timer(0, 1000)      // 0---1---2---3---4---5 ...
 
-    timer(0, 1000).pipe(
+    /*timer(0, 1000).pipe(
       map(e => e * 3),
       filter(e => e % 2 === 0)
     ).subscribe({
       next: e => console.log(e),
       complete: () => console.log('COMPLETE')
-    });
+    });*/
 
 
 

@@ -4,6 +4,7 @@ import { BookCard } from '../book-card/book-card';
 import { DatePipe } from '@angular/common';
 import { BookRatingHelper } from '../shared/book-rating-helper';
 import { BookStore } from '../shared/book-store';
+import { map, timer } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -24,9 +25,16 @@ export class DashboardPage {
       this.books.set(receivedBooks);
     });*/
 
-    setInterval(() => {
+    /*setInterval(() => {
       this.currentTimeStamp.set(Date.now());
     }, 1000);
+    */
+
+    timer(0, 1000).pipe(
+      map(() => Date.now())
+    ).subscribe(e => {
+      this.currentTimeStamp.set(e);
+    });
   }
 
   doRateUp(book: Book) {
