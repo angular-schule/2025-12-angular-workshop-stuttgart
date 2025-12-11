@@ -1,1 +1,8 @@
-<span class="badge bg-secondary">{{ rating() }}</span>
+<span class="badge bg-secondary">
+  {{ rating() }}
+
+  <!--{{ starRating() }}-->
+
+  @for (star of starArray(); track $index) {⭐️}
+
+</span>

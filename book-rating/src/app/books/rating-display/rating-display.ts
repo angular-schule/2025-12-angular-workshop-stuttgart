@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-rating-display',
@@ -8,4 +8,10 @@ import { Component, input } from '@angular/core';
 })
 export class RatingDisplay {
   readonly rating = input.required<number>();
+
+  protected readonly starRating = computed(() => '⭐️'.repeat(this.rating()));
+
+  protected readonly starArray = computed(() => new Array(this.rating()));
+
+
 }
