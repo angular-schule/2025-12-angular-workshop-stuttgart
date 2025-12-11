@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Book } from '../shared/book';
-import { Field, form, maxLength, minLength, schema, min, max, required, pattern, provideSignalFormsConfig, validate } from '@angular/forms/signals';
+import { Field, form, maxLength, minLength, schema, min, max, required, pattern, provideSignalFormsConfig, validate, applyEach } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 
 @Component({
@@ -49,7 +49,16 @@ export class BookCreatePage {
         return undefined;
       }
     })
+
+    applyEach(path.authors, (author) => {
+      required(author);
+    });
   }));
+
+
+  addAuthorField() {
+    this.bookForm.authors().value.update(currentAuthors => [...currentAuthors, '']);
+  }
 }
 
 

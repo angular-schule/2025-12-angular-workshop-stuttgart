@@ -43,6 +43,15 @@
     <input id="priceField" type="number" class="form-control" [field]="bookForm.price" />
   </div>
 
+  <fieldset>
+    <label>Autoren</label>
+    <button type="button" class="btn btn-green" (click)="addAuthorField()">+ Autor</button>
+
+    @for (authorField of bookForm.authors; track $index) {
+      <input type="text" class="form-control" [field]="authorField" />
+    }
+  </fieldset>
+
   <button type="submit" class="btn btn-green">Abschicken</button>
 </form>
 
