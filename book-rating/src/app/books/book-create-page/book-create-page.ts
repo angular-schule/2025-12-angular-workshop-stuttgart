@@ -68,7 +68,7 @@ export class BookCreatePage {
   - "Das Feld ist ungültig"
   - "Die ISBN ist zu kurz"
 - (ISBN asynchron validieren)
-- Button deaktivieren, wenn ungültig
+- Button deaktivieren, wenn Formular ungültig ist
 - Formular abschicken
   - HTTP-Request
   - bei Erfolg: wegnavigieren zur Detailseite
